@@ -1,0 +1,69 @@
+# Contribution Guidelines
+
+## Branching strategy
+This repository follows a simplified git-flow.
+
+The master branch is production ready code.
+
+Bugfixes and one-off features branch either directly off master, or off larger
+epic branches.  Branches are named as follows, using the github issue number if relevant:
+
+    feature/201-tree-generation
+    bugfix/404-handle-nulls
+    hotfix/handle-undefined-too
+
+Merges are always non-fastforward.
+
+## Template
+
+This project uses a standard format for commit messages.
+
+To configure this template, from the command line, add the following to .git/config
+
+```
+[commit]
+	template = .gitmessage
+```
+
+All commit messages should use proper spelling and grammar to maintain an air of
+professional polish.
+
+Please see `.gitmessage` to see the template.
+
+### Samples
+
+Some examples of possible commit contents:
+
+```
+[feat]: Implement first pass at tree generation :tada:
+
+Motivation:
+Lifion services can use this method to generate a tree of controls which can
+interact with the UI. The method accepts a mask and context, but will fall
+back to default values if neither is provided.
+
+Artifacts:
+#201 - Implement tree generation
+```
+
+```
+[style]: Fixes some minor formatting issues in src/index.ts
+```
+
+```
+[tests]: Adds an extra test for a corner case in the tree generation method
+
+Motivation:
+The tree generation method didn't fail gracefully when a composite control lego
+referred to a nonexistent control.
+```
+
+```
+[feat]: Modify the API for the tree generation endpoint to require a context
+
+Release Notes:
+ - Consumers must now always pass in a valid context
+
+Impacts:
+ - UI Testing service must now ensure it is passing the context
+```

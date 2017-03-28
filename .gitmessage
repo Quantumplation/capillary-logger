@@ -1,0 +1,34 @@
+# [type] Subject (No more than 72 characters, including emoji) :Optional_Emoji:
+
+# (Note: Any of the sections below may be omitted if they do not add new info)
+# Motivation:
+# Roughly one paragraph describing why this change is being made, with emphasis
+# on the code/implementation perspective.  i.e. The JIRA story encompass the
+# user facing motivation, but this is the platform for discussing why it was
+# implemented in the way it was.
+
+# Impacts:
+# List any potential downstream users or services who might be impacted 
+# (API changes, etc) and what specific form that impact will take 
+# ("X service needs to ensure..." "Y service needs to change ...", etc.)
+
+# Release Notes:
+# A bulleted list of notes to add to any automated release notes that may be
+# presented to an end user
+
+# Artifacts:
+# List any Github stories that are closed by this specific commit, for easy
+# lookup / automatic update scripts
+
+# Type must be one of:
+# dev - Standard development + testing, working towards adding a new feature
+# fix - Fixes a defect, covers it with a unit test
+# docs - Adds public facing documentation
+# meta - Changes to our seed metadata
+# tests - Adds additional test cases
+# style - Purely cosmetic changes that don't impact the runtime execution
+# build - Changes to the build / compile pipeline / editor settings
+# refactor - Structural changes that change runtime, but don't change semantics
+# version - Bumps the version number alone
+# mixed - Changes from multiple categories above.  **Generaly Discouraged**
+# init - Reserved for the initial commit
