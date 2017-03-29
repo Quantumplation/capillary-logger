@@ -71,6 +71,12 @@ logger.context.currentBlock = 'Phase3';
 child.error({ message: 'Failed to compute average', error: ... });
 ```
 
+## Asynchronicity
+
+Because some plugins may be communicating with outside services, you may want to
+respond to failures to log specific messages.  For this, we provide a logAsync
+method which returns a promise.
+
 ## Plugins
 
 Capillary supports a plugin architecture.  Each message will be passed into
@@ -82,7 +88,7 @@ As soon as the first plugin is registered, however, the default console plugin
 will be replaced by the registered plugin.
 
 ```javascript
-class FileWriterPlugin extends capillary.Plugin {
+class FileWriterPlugin extends capillary.AsyncPlugin {
   private filename: string;
   constructor(filename: string) {
     this.filename = filename;
@@ -100,9 +106,17 @@ class FileWriterPlugin extends capillary.Plugin {
 logger.addPlugin(new FileWriterPlugin('logs.txt'));
 ```
 
+Plugins come in two flavors: Sync and Async.  Capillary makes the guarantee that
+any Sync plugins are run synchronously when possible.  That is, if all of your 
+plugins are synchronous, the entire thing will be executed synchronously.
+
 ### Console Plugin
 
 Writes each log message out to console after passing it through JSON.stringify.
+
+### TimestampPlugin
+
+Adds the current date and time to each message, using a configurable property name.
 
 ### TypePrefixPlugin
 
