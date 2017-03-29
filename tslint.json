@@ -1,0 +1,25 @@
+{
+	"extends": "tslint:recommended",
+	"rules": {
+		"arrow-parens": false,
+		"eofline": false,
+		"indent": [true, "spaces", 2],
+		"interface-name": [false],
+		"max-classes-per-file": [false],
+		"member-ordering": [ true, { "order": "fields-first" } ],
+		"no-angle-bracket-type-assertion": true,
+		"no-consecutive-blank-lines": [true],
+		"no-internal-module": false,
+		"no-invalid-this": [ true, "check-function-in-method" ],
+		"no-require-imports": false,
+		"no-string-literal": false,
+		"object-literal-sort-keys": false,
+		"ordered-imports": [false],
+		"quotemark": [ true, "single", "jsx-double", "avoid-escape" ],
+		"semicolon": [ true, "always" ],
+		"variable-name": [ true, "ban-keywords", "check-format", "allow-leading-underscore" ],
+		"whitespace": [ true, "check-decl", "check-operator", "check-separator", "check-type", "check-typecast" ]
+	},
+	"rulesDirectory": [
+	]
+}

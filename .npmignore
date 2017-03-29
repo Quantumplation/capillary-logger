@@ -1,0 +1,38 @@
+# This file controls exclusion from `npm pack` and `npm publish` in tandem
+# with .gitignore and certain hard-code exclusions in npm
+# See https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
+
+## files watched by Git but not needed in a module's package
+Docker*
+docker*
+Vagrant*
+vagrant*
+
+# local .npm cache
+.npm
+
+# local npmrc files
+npmrc
+.npmrc
+
+# node_build files
+.package.json
+package.tgz
+*-*.tgz
+
+*.idea
+.vagrant
+**/node_modules
+node_modules
+**/*.log
+build/**/*
+sandbox/**/*.*
+dbs
+module/config/gemfire.xml
+pid.lock
+*.gfs
+
+_build
+
+# unit-test reports
+spec/reports
