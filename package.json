@@ -23,16 +23,19 @@
   "engines": {
     "node": "6.9.1"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/chai-as-promised": "0.0.29",
     "@types/mocha": "^2.2.39",
     "@types/node": "^6.x",
+    "@types/sinon": "^1.16.35",
+    "@types/sinon-chai": "^2.7.27",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "mocha": "^3.2.0",
+    "sinon": "^2.1.0",
+    "sinon-chai": "^2.9.0",
     "ts-node": "^2.1.0",
     "tslint": "^4.5.1",
     "typescript": "2.1.5",
