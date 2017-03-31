@@ -4,11 +4,13 @@
 		"module": "commonjs",
 		"sourceMap": true,
 		"outDir": "dist/",
+		"declaration": true,
 		"strictNullChecks": true,
 		"allowUnreachableCode": true,
 		"noUnusedLocals": true
 	},
 	"exclude": [
+		"dist",
 		"node_modules",
 		"spec"
 	]
