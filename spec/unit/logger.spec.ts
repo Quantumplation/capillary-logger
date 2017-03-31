@@ -1,8 +1,10 @@
 import sinon = require('sinon');
+import sinonChai = require('sinon-chai');
 import * as zurvan from 'zurvan';
 import * as chai from 'chai';
 
 const expect = chai.expect;
+chai.use(sinonChai);
 
 import { InMemoryPlugin, AddPropertyPlugin, DummyAsyncPlugin } from '../helpers';
 import { Logger } from '../../src';
