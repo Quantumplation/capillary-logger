@@ -1,11 +1,11 @@
 {
-  "name": "capillary",
+  "name": "capillary-logger",
   "version": "0.0.1",
   "description": "A logging library with hierarchical context",
   "main": "./dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Quantumplation/capillary"
+    "url": "https://github.com/Quantumplation/capillary-logger"
   },
   "scripts": {
     "prepublish": "npm run build",
