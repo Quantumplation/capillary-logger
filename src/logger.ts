@@ -1,4 +1,4 @@
-import { Plugin } from './plugin';
+import { Plugin, SyncPlugin, AsyncPlugin } from './plugin';
 import { ConsolePlugin } from './plugins/ConsolePlugin';
 
 export type Severity = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
@@ -18,7 +18,7 @@ export class Logger {
     }
   }
 
-  public static orDefault(logger: Logger | undefined): Logger {
+  public static orDefault(logger: Logger | null | undefined): Logger {
     return logger || new NullLogger();
   }
 
@@ -64,10 +64,9 @@ export class Logger {
     let fullMessage = this.getFullMessage(severity, message);
     const plugins = this.getPluginList();
     for(const plugin of plugins) {
-      if(plugin.isSync()) {
+      if(plugin instanceof SyncPlugin) {
         fullMessage = plugin.process(fullMessage);
-      }
-      if(plugin.isAsync()) {
+      } else if (plugin instanceof AsyncPlugin) {
         fullMessage = await plugin.process(fullMessage);
       }
     }
