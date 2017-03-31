@@ -1,9 +1,4 @@
-import sinon = require('sinon');
-import sinonChai = require('sinon-chai');
-import { expect, use as ChaiUse } from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
-
-ChaiUse(sinonChai);
+import { expect } from 'chai';
 
 import { TypePrefixPlugin } from '../../src/plugins/TypePrefixPlugin';
 

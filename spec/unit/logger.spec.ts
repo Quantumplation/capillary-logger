@@ -1,10 +1,8 @@
 import sinon = require('sinon');
-import sinonChai = require('sinon-chai');
 import * as zurvan from 'zurvan';
-import { expect, use as ChaiUse } from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
+import * as chai from 'chai';
 
-ChaiUse(sinonChai);
+const expect = chai.expect;
 
 import { InMemoryPlugin, AddPropertyPlugin, DummyAsyncPlugin } from '../helpers';
 import { Logger } from '../../src';
@@ -14,19 +12,19 @@ describe('Logger', async () => {
   let logger: Logger;
   before(async () => {
     await zurvan.interceptTimers();
-  })
-  beforeEach(() => {
+  });
+  beforeEach(async () => {
     logger = new Logger();
     sandbox = sinon.sandbox.create();
-    sandbox.stub(console, 'log');
   });
-  afterEach(() => {
+  afterEach(async () => {
     sandbox.restore();
   });
   after(async () => {
     await zurvan.releaseTimers();
   });
   it('should log to console by default', async () => {
+    sandbox.stub(console, 'log');
     logger.info('some message');
     expect(console.log).to.have.been.called;
   });
