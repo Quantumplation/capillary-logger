@@ -7,7 +7,7 @@ const expect = chai.expect;
 chai.use(sinonChai);
 
 import { InMemoryPlugin, AddPropertyPlugin, DummyAsyncPlugin } from '../helpers';
-import { Logger } from '../../src';
+import { Logger, NullLogger } from '../../src/logger';
 
 describe('Logger', async () => {
   let sandbox: sinon.SinonSandbox;
@@ -144,6 +144,34 @@ describe('Logger', async () => {
         pendingMessage.deferred.resolve(pendingMessage.message);
         await promise;
       });
+    });
+  });
+  describe('Null Logger', async () => {
+    it('should return a null logger from orDefault', async () => {
+      const nullLogger = Logger.orDefault(null);
+      expect(nullLogger).to.be.an.instanceOf(NullLogger);
+    });
+    it('should not return null logger for logger sent to orDefault', async () => {
+      const notNullLogger = Logger.orDefault(logger);
+      expect(notNullLogger).to.equal(logger);
+    });
+    it('should not log anything', async () => {
+      sandbox.stub(console, 'log');
+      const nullLogger = Logger.orDefault(null);
+      nullLogger.info('some message');
+      expect(console.log).not.to.have.been.called;
+    });
+    it('should not log anything to plugins', async () => {
+      const inMemory = new InMemoryPlugin();
+      const nullLogger = Logger.orDefault(null);
+      nullLogger.addPlugin(inMemory);
+      nullLogger.info('some message');
+      expect(inMemory.messages.length).to.equal(0);
+    });
+    it('should spawn itself as a child', async () => {
+      const nullLogger = Logger.orDefault(null);
+      const child = nullLogger.split({ a: 1 });
+      expect(child).to.equal(nullLogger);
     });
   });
 });
