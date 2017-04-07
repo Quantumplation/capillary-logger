@@ -1,5 +1,6 @@
 # Capillary
 ![Codeship Badge](https://codeship.com/projects/84ae51b0-fde4-0134-56ba-5274708b3ee2/status?branch=master)
+[![npm version](https://badge.fury.io/js/capillary-logger.svg)](https://badge.fury.io/js/capillary-logger)
 
 Capillary is a logging library with hierarchical context attached to each message.
 
