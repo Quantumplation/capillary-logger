@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { TypePrefixPlugin } from '../../src/plugins/TypePrefixPlugin';
+import { TypePostfixPlugin } from '../../src/plugins/TypePostfixPlugin';
 
 describe('Type Prefix plugin', async () => {
   function expectPrefix(obj: any, property: string, prefix: string, value: any) {
@@ -8,9 +8,9 @@ describe('Type Prefix plugin', async () => {
     expect(obj).to.have.property(prefix + property);
     expect(obj[prefix + property]).to.eql(value);
   }
-  let plugin: TypePrefixPlugin;
+  let plugin: TypePostfixPlugin;
   beforeEach(async () => {
-    plugin = new TypePrefixPlugin();
+    plugin = new TypePostfixPlugin();
   });
   it('should prefix top level string properties', async () => {
     const output = plugin.process({ message: 'some message' });
@@ -30,12 +30,12 @@ describe('Type Prefix plugin', async () => {
     expectPrefix(output, 'dt', 'dt_', date);
   });
   it('should allow explicit mappings', async () => {
-    plugin = new TypePrefixPlugin(undefined, { myProp: 'myPrefix_' });
+    plugin = new TypePostfixPlugin(undefined, { myProp: 'myPrefix_' });
     const output = plugin.process({ myProp: 'abc' });
     expectPrefix(output, 'myProp', 'myPrefix_', 'abc');
   });
   it('should allow prefixes to be overridden', async () => {
-    plugin = new TypePrefixPlugin({ number: 'xyz'});
+    plugin = new TypePostfixPlugin({ number: 'xyz'});
     const output = plugin.process({ x: 1, y: 'abc' });
     expectPrefix(output, 'x', 'xyz', 1);
     expectPrefix(output, 'y', 's_', 'abc');
