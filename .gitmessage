@@ -25,7 +25,7 @@
 # fix - Fixes a defect, covers it with a unit test
 # docs - Adds public facing documentation
 # meta - Changes to our seed metadata
-# tests - Adds additional test cases
+# test - Adds additional test cases
 # style - Purely cosmetic changes that don't impact the runtime execution
 # build - Changes to the build / compile pipeline / editor settings
 # refactor - Structural changes that change runtime, but don't change semantics

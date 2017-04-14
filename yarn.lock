@@ -256,6 +256,10 @@ get-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
+git-hooks@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/git-hooks/-/git-hooks-1.1.8.tgz#de935858c951c336bd648202938bd04fa433279d"
+
 glob@7.0.5:
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.0.5.tgz#b4202a69099bbb4d292a7c1b95b6682b67ebdc95"
