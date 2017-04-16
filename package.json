@@ -1,6 +1,6 @@
 {
   "name": "capillary-logger",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A logging library with hierarchical context",
   "main": "./dist/index.js",
   "repository": {
