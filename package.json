@@ -9,8 +9,6 @@
   },
   "scripts": {
     "prepublish": "npm run build",
-    "postinstall": "./node_modules/git-hooks/bin/git-hooks --install",
-    "preuninstall": "./node_modules/git-hooks/bin/git-hooks --uninstall",
     "full-build": "npm run clean && npm run build",
     "clean": "rm -rf dist",
     "build": "npm run lint && npm run compile",
