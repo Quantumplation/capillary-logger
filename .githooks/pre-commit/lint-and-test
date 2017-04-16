@@ -7,9 +7,13 @@ PATCH_FILE="working-tree.patch"
 
 function cleanup {
     exit_code=$?
-    if [ -f "$PATCH_FILE" ]; then
+    if [ -s "$PATCH_FILE" ]; then
         git apply "$PATCH_FILE" 2> /dev/null
-        rm "$PATCH_FILE"
+        if [ $? = 0 ]; then
+          rm "$PATCH_FILE"
+        fi
+    elif [ -f "$PATCH_FILE" ]; then
+      rm "$PATCH_FILE"
     fi
     exit $exit_code
 }
