@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "description": "A logging library with hierarchical context",
   "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Quantumplation/capillary-logger"
