@@ -64,6 +64,9 @@ export class Logger {
     let fullMessage = this.getFullMessage(severity, message);
     const plugins = this.getPluginList();
     for(const plugin of plugins) {
+      if (fullMessage === null || fullMessage === undefined) {
+        return;
+      }
       if(plugin instanceof SyncPlugin) {
         fullMessage = plugin.process(fullMessage);
       } else if (plugin instanceof AsyncPlugin) {

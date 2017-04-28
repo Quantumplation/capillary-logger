@@ -6,7 +6,7 @@ import * as chai from 'chai';
 const expect = chai.expect;
 chai.use(sinonChai);
 
-import { InMemoryPlugin, AddPropertyPlugin, DummyAsyncPlugin } from '../helpers';
+import { InMemoryPlugin, AddPropertyPlugin, DummyAsyncPlugin, FilterPlugin } from '../helpers';
 import { Logger, NullLogger } from '../../src/logger';
 
 describe('Logger', async () => {
@@ -143,6 +143,23 @@ describe('Logger', async () => {
         pendingMessage = async2.awaitingMessages[0];
         pendingMessage.deferred.resolve(pendingMessage.message);
         await promise;
+      });
+
+      it('should stop processing plugins if one returns null or undefined', async () => {
+        const inMemoryBefore = new InMemoryPlugin();
+        const filter = new FilterPlugin(message => message.severity === 'fatal');
+        const inMemoryAfter = new InMemoryPlugin();
+
+        logger.addPlugin(inMemoryBefore);
+        logger.addPlugin(filter);
+        logger.addPlugin(inMemoryAfter);
+
+        logger.log('fatal', '[useful message]');
+        logger.log('trace', '[useless log-cluttering message]');
+
+        expect(inMemoryBefore.messages.length).to.equal(2);
+        expect(inMemoryAfter.messages.length).to.equal(1);
+        expect(inMemoryAfter.messages[0]).to.have.property('message', '[useful message]');
       });
     });
   });

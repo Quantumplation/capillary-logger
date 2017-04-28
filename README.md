@@ -83,8 +83,9 @@ method which returns a promise.
 
 Capillary supports a plugin architecture.  Each message will be passed into
 each plugin in the order in which they were activated. This can perform custom 
-transformations, or log to custom sources.  By default, the "console" plugin will
-be active, which logs each message as JSON to the console.
+transformations, filter based on custom logic, or log to custom sources. By
+default, the "console" plugin will be active, which logs each message as JSON
+to the console.
 
 As soon as the first plugin is registered, however, the default console plugin
 will be replaced by the registered plugin.
@@ -112,9 +113,13 @@ Plugins come in two flavors: Sync and Async.  Capillary makes the guarantee that
 any Sync plugins are run synchronously when possible.  That is, if all of your 
 plugins are synchronous, the entire thing will be executed synchronously.
 
-### Console Plugin
+### ConsolePlugin
 
 Writes each log message out to console after passing it through JSON.stringify.
+
+### MinimumSeverityPlugin
+
+Filters and discards any messages whose severity is below a pre-defined level.
 
 ### TimestampPlugin
 
