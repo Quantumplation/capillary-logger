@@ -13,6 +13,10 @@
     "full-build": "npm run clean && npm run build",
     "clean": "rm -rf dist",
     "build": "npm run lint && npm run compile",
+    "format": "npm run prettier:write",
+    "prettier:base": "prettier --parser typescript --single-quote --trailing-comma all",
+    "prettier:check": "npm run prettier:base --  -l \"src/**/*.ts\" -l \"src/**/*.ts\"",
+    "prettier:write": "npm run prettier:base -- --write \"src/**/*.ts\" --write \"src/**/*.ts\"",
     "lint": "./node_modules/.bin/tslint --type-check \"src/**/*.ts\" \"spec/**/*.ts\"",
     "compile": "tsc",
     "test": "npm run unit-test",
@@ -23,8 +27,7 @@
   "engines": {
     "node": "6.9.1"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/chai-as-promised": "0.0.29",
@@ -36,6 +39,7 @@
     "chai-as-promised": "^6.0.0",
     "git-hooks": "^1.1.8",
     "mocha": "^3.2.0",
+    "prettier": "^1.4.0",
     "sinon": "^2.1.0",
     "sinon-chai": "^2.9.0",
     "ts-node": "^2.1.0",
