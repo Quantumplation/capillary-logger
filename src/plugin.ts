@@ -1,5 +1,4 @@
-export abstract class Plugin {
-}
+export abstract class Plugin {}
 
 export abstract class AsyncPlugin extends Plugin {
   public abstract process(message: any): Promise<any>;

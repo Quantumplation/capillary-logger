@@ -13,8 +13,8 @@ export class Logger {
     this.context = context;
     this.parent = parent;
     this.customPlugins = false;
-    if(parent === undefined) {
-      this.plugins = [ new ConsolePlugin() ];
+    if (parent === undefined) {
+      this.plugins = [new ConsolePlugin()];
     }
   }
 
@@ -23,11 +23,11 @@ export class Logger {
   }
 
   public addPlugin(plugin: Plugin) {
-    if(this.parent) {
+    if (this.parent) {
       // Couldn't think of clean semantics for this, so we just disallow it for now
       throw new Error('Unable to add plugins on child loggers.');
     }
-    if(!this.customPlugins) {
+    if (!this.customPlugins) {
       this.customPlugins = true;
       this.plugins = [];
     }
@@ -42,32 +42,35 @@ export class Logger {
     // Note we intentionally leave this promise dangling, since our consumers don't
     // expect this to be async. If we encounter an error, we have a fail-safe
     // console.log so that errors in loggers/plugins aren't impossible to debug.
-    this.logAsync(severity, message)
-      .catch(error => {
-        const wrappedError = {
-          severity: 'error',
-          message: 'An error occurred while processing log messages from capillary',
-          error,
-        };
-        /* tslint:disable */
-        console.log(JSON.stringify(wrappedError));
-        /* tslint:enable */
-      });
+    this.logAsync(severity, message).catch(error => {
+      const wrappedError = {
+        severity: 'error',
+        message:
+          'An error occurred while processing log messages from capillary',
+        error,
+      };
+      /* tslint:disable */
+      console.log(JSON.stringify(wrappedError));
+      /* tslint:enable */
+    });
   }
 
-  public async logAsync(severity: Severity, message: string | any): Promise<void> {
+  public async logAsync(
+    severity: Severity,
+    message: string | any,
+  ): Promise<void> {
     // NOTE!! We are heavily dependent on the following behavior:
     // an async function is run immediately (synchronously) until the first await,
     // and *then* the rest of the function is placed on the event queue.  This is
     // in contrast to the entire function being placed on the event queue.
-    message = (typeof message === 'object') ? message : { message };
+    message = typeof message === 'object' ? message : { message };
     let fullMessage = this.getFullMessage(severity, message);
     const plugins = this.getPluginList();
-    for(const plugin of plugins) {
+    for (const plugin of plugins) {
       if (fullMessage === null || fullMessage === undefined) {
         return;
       }
-      if(plugin instanceof SyncPlugin) {
+      if (plugin instanceof SyncPlugin) {
         fullMessage = plugin.process(fullMessage);
       } else if (plugin instanceof AsyncPlugin) {
         fullMessage = await plugin.process(fullMessage);
@@ -75,25 +78,37 @@ export class Logger {
     }
   }
 
-  public trace(message: string | any) { this.log('trace', message); }
-  public debug(message: string | any) { this.log('debug', message); }
-  public info(message: string | any) { this.log('info', message); }
-  public warn(message: string | any) { this.log('warn', message); }
-  public error(message: string | any) { this.log('error', message); }
-  public fatal(message: string | any) { this.log('fatal', message); }
+  public trace(message: string | any) {
+    this.log('trace', message);
+  }
+  public debug(message: string | any) {
+    this.log('debug', message);
+  }
+  public info(message: string | any) {
+    this.log('info', message);
+  }
+  public warn(message: string | any) {
+    this.log('warn', message);
+  }
+  public error(message: string | any) {
+    this.log('error', message);
+  }
+  public fatal(message: string | any) {
+    this.log('fatal', message);
+  }
 
   private getPluginList(): Plugin[] {
     let current: Logger | undefined = this;
-    while(current.parent !== undefined) {
+    while (current.parent !== undefined) {
       current = current.parent;
     }
     return current.plugins;
   }
 
   private getFullMessage(severity: Severity, message: any): any {
-    let contexts = [ this.context ];
+    let contexts = [this.context];
     let current = this.parent;
-    while(current !== undefined) {
+    while (current !== undefined) {
       contexts.push(current.context);
       current = current.parent;
     }
@@ -107,7 +122,10 @@ export class NullLogger extends Logger {
   public addPlugin(plugin: Plugin) {
     return;
   }
-  public async logAsync(severity: Severity, message: string | any): Promise<void> {
+  public async logAsync(
+    severity: Severity,
+    message: string | any,
+  ): Promise<void> {
     return;
   }
   public split(context?: any): Logger {

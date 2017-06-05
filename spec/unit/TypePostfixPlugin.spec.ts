@@ -3,7 +3,12 @@ import { expect } from 'chai';
 import { TypePostfixPlugin } from '../../src/plugins/TypePostfixPlugin';
 
 describe('Type Postfix plugin', async () => {
-  function expectPostfix(obj: any, property: string, postfix: string, value: any) {
+  function expectPostfix(
+    obj: any,
+    property: string,
+    postfix: string,
+    value: any,
+  ) {
     expect(obj).not.to.have.property(property);
     expect(obj).to.have.property(property + postfix);
     expect(obj[property + postfix]).to.eql(value);
@@ -35,7 +40,7 @@ describe('Type Postfix plugin', async () => {
     expectPostfix(output, 'myProp', 'myPrefix_', 'abc');
   });
   it('should allow prefixes to be overridden', async () => {
-    plugin = new TypePostfixPlugin({ number: 'xyz'});
+    plugin = new TypePostfixPlugin({ number: 'xyz' });
     const output = plugin.process({ x: 1, y: 'abc' });
     expectPostfix(output, 'x', 'xyz', 1);
     expectPostfix(output, 'y', '_s', 'abc');

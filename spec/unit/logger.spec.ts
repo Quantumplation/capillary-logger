@@ -6,7 +6,12 @@ import * as chai from 'chai';
 const expect = chai.expect;
 chai.use(sinonChai);
 
-import { InMemoryPlugin, AddPropertyPlugin, DummyAsyncPlugin, FilterPlugin } from '../helpers';
+import {
+  InMemoryPlugin,
+  AddPropertyPlugin,
+  DummyAsyncPlugin,
+  FilterPlugin,
+} from '../helpers';
 import { Logger, NullLogger } from '../../src/logger';
 
 describe('Logger', async () => {
@@ -39,7 +44,10 @@ describe('Logger', async () => {
     it('should wrap string message as object', async () => {
       logger.info('some message');
       expect(inMemoryPlugin.messages.length).to.equal(1);
-      expect(inMemoryPlugin.messages[0]).to.have.property('message', 'some message');
+      expect(inMemoryPlugin.messages[0]).to.have.property(
+        'message',
+        'some message',
+      );
     });
     it('should inject severity property', async () => {
       const inMemory = new InMemoryPlugin();
@@ -51,12 +59,30 @@ describe('Logger', async () => {
       logger.error('e');
       logger.fatal('f');
       expect(inMemoryPlugin.messages.length).to.equal(6);
-      expect(inMemoryPlugin.messages[0]).to.eql({ message: 'a', severity: 'trace' });
-      expect(inMemoryPlugin.messages[1]).to.eql({ message: 'b', severity: 'debug' });
-      expect(inMemoryPlugin.messages[2]).to.eql({ message: 'c', severity: 'info' });
-      expect(inMemoryPlugin.messages[3]).to.eql({ message: 'd', severity: 'warn' });
-      expect(inMemoryPlugin.messages[4]).to.eql({ message: 'e', severity: 'error' });
-      expect(inMemoryPlugin.messages[5]).to.eql({ message: 'f', severity: 'fatal' });
+      expect(inMemoryPlugin.messages[0]).to.eql({
+        message: 'a',
+        severity: 'trace',
+      });
+      expect(inMemoryPlugin.messages[1]).to.eql({
+        message: 'b',
+        severity: 'debug',
+      });
+      expect(inMemoryPlugin.messages[2]).to.eql({
+        message: 'c',
+        severity: 'info',
+      });
+      expect(inMemoryPlugin.messages[3]).to.eql({
+        message: 'd',
+        severity: 'warn',
+      });
+      expect(inMemoryPlugin.messages[4]).to.eql({
+        message: 'e',
+        severity: 'error',
+      });
+      expect(inMemoryPlugin.messages[5]).to.eql({
+        message: 'f',
+        severity: 'fatal',
+      });
     });
     it('should include context in messages', async () => {
       logger = new Logger({ someProp: 1, otherProp: 'a' });
@@ -147,7 +173,9 @@ describe('Logger', async () => {
 
       it('should stop processing plugins if one returns null or undefined', async () => {
         const inMemoryBefore = new InMemoryPlugin();
-        const filter = new FilterPlugin(message => message.severity === 'fatal');
+        const filter = new FilterPlugin(
+          message => message.severity === 'fatal',
+        );
         const inMemoryAfter = new InMemoryPlugin();
 
         logger.addPlugin(inMemoryBefore);
@@ -159,7 +187,10 @@ describe('Logger', async () => {
 
         expect(inMemoryBefore.messages.length).to.equal(2);
         expect(inMemoryAfter.messages.length).to.equal(1);
-        expect(inMemoryAfter.messages[0]).to.have.property('message', '[useful message]');
+        expect(inMemoryAfter.messages[0]).to.have.property(
+          'message',
+          '[useful message]',
+        );
       });
     });
   });

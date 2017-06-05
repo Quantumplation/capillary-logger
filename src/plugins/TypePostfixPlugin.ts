@@ -32,26 +32,32 @@ export class TypePostfixPlugin extends SyncPlugin {
 
   constructor(settings?: PostfixMap, explicitMappings?: PostfixMap) {
     super();
-    this.postfixes = Object.assign({
-      string: '_s',
-      number: '_n',
-      object: '_o',
-      date: '_dt',
-    }, settings);
+    this.postfixes = Object.assign(
+      {
+        string: '_s',
+        number: '_n',
+        object: '_o',
+        date: '_dt',
+      },
+      settings,
+    );
     this.explicitMappings = explicitMappings || {};
   }
 
   public process(message: any): any {
     let transformedMessage = {};
-    for(const key of Object.keys(message)) {
-      if(!message.hasOwnProperty(key)) { continue; }
+    for (const key of Object.keys(message)) {
+      if (!message.hasOwnProperty(key)) {
+        continue;
+      }
       const value = message[key];
       let type = typeof value;
       let ctor = value.constructor.name.toLowerCase();
-      const postfix = this.explicitMappings[key] ||
-                     this.postfixes[ctor] ||
-                     this.postfixes[type];
-      if(postfix !== undefined) {
+      const postfix =
+        this.explicitMappings[key] ||
+        this.postfixes[ctor] ||
+        this.postfixes[type];
+      if (postfix !== undefined) {
         transformedMessage[key + postfix] = value;
       } else {
         transformedMessage[key] = value;

@@ -13,7 +13,8 @@ describe('Minimum severity plugin', () => {
     const plugin = new MinimumSeverityPlugin('info');
     const message = {
       number: 47,
-      message: 'Cats use their whiskers to detect if they can fit through a space',
+      message:
+        'Cats use their whiskers to detect if they can fit through a space',
       severity: 'info',
     };
     expect(plugin.process(message)).to.equal(message);
