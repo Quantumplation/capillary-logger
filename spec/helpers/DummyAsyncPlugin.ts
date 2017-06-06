@@ -1,7 +1,7 @@
 import { AsyncPlugin } from '../../src/plugin';
 import { Deferred } from './deferred';
 
-export type PendingMessage = { deferred: Deferred<any>, message: any };
+export type PendingMessage = { deferred: Deferred<any>; message: any };
 
 export class DummyAsyncPlugin extends AsyncPlugin {
   public awaitingMessages: PendingMessage[] = [];
