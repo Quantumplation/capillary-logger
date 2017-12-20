@@ -32,6 +32,8 @@ export class Logger {
       this.plugins = [];
     }
     this.plugins.push(plugin);
+
+    return this;
   }
 
   public split(context?: any) {
@@ -120,7 +122,7 @@ export class Logger {
 
 export class NullLogger extends Logger {
   public addPlugin(plugin: Plugin) {
-    return;
+    return this;
   }
   public async logAsync(
     severity: Severity,
