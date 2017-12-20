@@ -192,8 +192,15 @@ describe('Logger', async () => {
           '[useful message]',
         );
       });
+
+      it('addPlugin should return reference to logger', () => {
+        const log = new Logger();
+        const ref = log.addPlugin(new NullLogger()).addPlugin(new NullLogger());
+        expect(log).to.equal(ref);
+      });
     });
   });
+
   describe('Null Logger', async () => {
     it('should return a null logger from orDefault', async () => {
       const nullLogger = Logger.orDefault(null);
