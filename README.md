@@ -45,7 +45,7 @@ You can split off child loggers, which inherit their parents context:
 
 ```javascript
 let logger = new Logger({ requestId: '123...' });
-let child = logger.child({ activity: 'Setup' });
+let child = logger.split({ activity: 'Setup' });
 // The following message will additionally include the requestId and the activity
 child.info({ message: 'Reading data from database', databaseId: '456...' }); 
 ```
@@ -55,7 +55,7 @@ the updated context
 
 ```javascript
 let logger = new Logger({ requestId: '123...' });
-let averageCalculationLogger = logger.child({ activity: 'Average Calculation' });
+let averageCalculationLogger = logger.split({ activity: 'Average Calculation' });
 ...
 logger.context.currentStep = 'Phase1';
 ...
@@ -71,6 +71,20 @@ logger.context.currentBlock = 'Phase3';
 ...
 // The following message will include currentStep: Phase3
 child.error({ message: 'Failed to compute average', error: ... });
+```
+
+### Accepting Capillary Loggers
+
+If you are writing another library, and want to allow (but not require) the use of
+a capillary logger, you can check if the logger passed in is capillary compliant via
+the the isCapillaryCompatible property on the logger, as so:
+
+```javascript
+if(parentLogger && parentLogger.isCapillaryCompatible) {
+  this._logger = parentLogger.split({ component: 'my-library' });
+} else {
+  this._logger = parentLogger;
+}
 ```
 
 ## Asynchronicity

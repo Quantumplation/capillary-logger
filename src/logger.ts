@@ -4,6 +4,7 @@ import { ConsolePlugin } from './plugins/ConsolePlugin';
 export type Severity = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
 
 export class Logger {
+  public readonly isCapillaryCompatible: boolean = true;
   public context: any | undefined;
   private parent: Logger | undefined;
   private customPlugins: boolean;
