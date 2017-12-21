@@ -73,6 +73,20 @@ logger.context.currentBlock = 'Phase3';
 child.error({ message: 'Failed to compute average', error: ... });
 ```
 
+### Accepting Capillary Loggers
+
+If you are writing another library, and want to allow (but not require) the use of
+a capillary logger, you can check if the logger passed in is capillary compliant via
+the the isCapillaryCompatible property on the logger, as so:
+
+```javascript
+if(parentLogger && parentLogger.isCapillaryCompatible) {
+  this._logger = parentLogger.split({ component: 'my-library' });
+} else {
+  this._logger = parentLogger;
+}
+```
+
 ## Asynchronicity
 
 Because some plugins may be communicating with outside services, you may want to
