@@ -45,7 +45,7 @@ You can split off child loggers, which inherit their parents context:
 
 ```javascript
 let logger = new Logger({ requestId: '123...' });
-let child = logger.child({ activity: 'Setup' });
+let child = logger.split({ activity: 'Setup' });
 // The following message will additionally include the requestId and the activity
 child.info({ message: 'Reading data from database', databaseId: '456...' }); 
 ```
@@ -55,7 +55,7 @@ the updated context
 
 ```javascript
 let logger = new Logger({ requestId: '123...' });
-let averageCalculationLogger = logger.child({ activity: 'Average Calculation' });
+let averageCalculationLogger = logger.split({ activity: 'Average Calculation' });
 ...
 logger.context.currentStep = 'Phase1';
 ...
