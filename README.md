@@ -131,6 +131,18 @@ plugins are synchronous, the entire thing will be executed synchronously.
 
 Writes each log message out to console after passing it through JSON.stringify.
 
+Allows pretty printing, configurable through the following options:
+
+ - prettyPrint
+   - (default: `false`)
+   - Enables or disables pretty printing altogether
+ - seperator
+   - (default: `''`)
+   - Seperate each log message with some token
+ - severityColors
+   - (default: `{ trace: 'grey', debug: 'green', info: 'white', warn: 'yellow', error: 'red', fatal: 'bgRed' }`)
+   - Specifies the colors to use for each severity level 
+
 ### MinimumSeverityPlugin
 
 Filters and discards any messages whose severity is below a pre-defined level.

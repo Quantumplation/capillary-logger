@@ -27,12 +27,16 @@
   "engines": {
     "node": "6.9.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "prettyjson": "^1.2.1"
+  },
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/chai-as-promised": "0.0.29",
     "@types/mocha": "^2.2.39",
     "@types/node": "^6.x",
+    "@types/prettyjson": "0.0.28",
     "@types/sinon": "^1.16.35",
     "@types/sinon-chai": "^2.7.27",
     "chai": "^3.5.0",
