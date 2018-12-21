@@ -41,6 +41,10 @@ export class Logger {
     return new Logger(context, this);
   }
 
+  public augment(additionalContext?: any) {
+    Object.assign(this.context, additionalContext);
+  }
+
   public log(severity: Severity, message: string | any) {
     // Note we intentionally leave this promise dangling, since our consumers don't
     // expect this to be async. If we encounter an error, we have a fail-safe
