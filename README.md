@@ -50,24 +50,42 @@ let child = logger.split({ activity: 'Setup' });
 child.info({ message: 'Reading data from database', databaseId: '456...' }); 
 ```
 
-When you update the parent context, messages logged with any child loggers will include
+Sometimes, especially in dependency injection scenarios, you don't have all the
+context you would like when you split off a child.  Instead, a method is called
+later (such as an initialize, configure, or service method) which adds additional
+context you'd like to capture in log messages.  Splitting off a separate logger
+for this is often inconvenient.
+
+To solve this, we've seen people modifying the context, and to make the intention
+of this clearer, we've added a an `augment` method
+
+```javascript
+let logger = new Logger({ requestId: '123...' });
+
+...
+
+logger.augment({ currentStep: 'Phase1' });
+logger.info({ message: 'Average computed successfully' });
+```
+
+When you augment the context, messages logged with any child loggers will include
 the updated context
 
 ```javascript
 let logger = new Logger({ requestId: '123...' });
 let averageCalculationLogger = logger.split({ activity: 'Average Calculation' });
 ...
-logger.context.currentStep = 'Phase1';
+logger.augment({ currentStep: 'Phase1' });
 ...
 // The following message will include currentStep: Phase1
 child.info({ message: 'Average computed successfully' });
 ...
-logger.context.currentStep = 'Phase2';
+logger.augment({ currentStep: 'Phase2' });
 ...
 // The following message will include currentStep: Phase2
 child.info({ message: 'Average computed successfully' });
 ...
-logger.context.currentBlock = 'Phase3';
+logger.augment({ currentStep: 'Phase3' });
 ...
 // The following message will include currentStep: Phase3
 child.error({ message: 'Failed to compute average', error: ... });

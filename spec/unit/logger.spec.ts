@@ -96,6 +96,23 @@ describe('Logger', async () => {
         otherProp: 'a',
       });
     });
+    it('should allow augmenting of context after creation', async () => {
+      logger = new Logger({ someProp: 1, otherProp: 'a' });
+      logger.augment({ extraData: { def: 1 } });
+
+      logger.addPlugin(inMemoryPlugin);
+      logger.info('some message');
+      expect(inMemoryPlugin.messages.length).to.equal(1);
+      expect(inMemoryPlugin.messages[0]).to.eql({
+        message: 'some message',
+        severity: 'info',
+        someProp: 1,
+        otherProp: 'a',
+        extraData: {
+          def: 1,
+        },
+      });
+    });
     describe('Child loggers', async () => {
       let child: Logger;
       beforeEach(async () => {
@@ -115,7 +132,7 @@ describe('Logger', async () => {
         expect(inMemoryPlugin.messages[0]).to.have.property('someProp', 1);
       });
       it('should respect changed parent context', async () => {
-        logger.context.someProp = 2;
+        logger.augment({ someProp: 2 });
         child.info('some message');
         expect(inMemoryPlugin.messages[0].someProp).to.equal(2);
       });
