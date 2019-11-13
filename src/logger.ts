@@ -1,5 +1,6 @@
 import { Plugin, SyncPlugin, AsyncPlugin } from './plugin';
 import { ConsolePlugin } from './plugins/ConsolePlugin';
+import { serializeError } from 'serialize-error';
 
 export type Severity = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
 
@@ -54,7 +55,7 @@ export class Logger {
         severity: 'error',
         message:
           'An error occurred while processing log messages from capillary',
-        error,
+        error: serializeError(error),
       };
       /* tslint:disable */
       console.log(JSON.stringify(wrappedError));

@@ -13,6 +13,7 @@ import {
   FilterPlugin,
 } from '../helpers';
 import { Logger, NullLogger } from '../../src/logger';
+import { ErrorPlugin } from '../helpers/ErrorPlugin';
 
 describe('Logger', async () => {
   let sandbox: sinon.SinonSandbox;
@@ -34,6 +35,16 @@ describe('Logger', async () => {
     sandbox.stub(console, 'log');
     logger.info('some message');
     expect(console.log).to.have.been.called;
+  });
+  it('should log serialized errors properly', async () => {
+    sandbox.stub(console, 'log');
+    logger.addPlugin(new ErrorPlugin('Some Silly Plugin Error'));
+    logger.info('some message');
+    // Error handling is done async, so we wait for the event queue to drain
+    await new Promise(res => res());
+    expect(console.log).to.have.been.calledWithMatch(
+      sinon.match(/Some Silly Plugin Error/),
+    );
   });
   describe('With in memory plugin', async () => {
     let inMemoryPlugin: InMemoryPlugin;
