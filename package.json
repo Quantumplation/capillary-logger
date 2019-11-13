@@ -9,7 +9,6 @@
     "url": "https://github.com/Quantumplation/capillary-logger"
   },
   "scripts": {
-    "prepublish": "npm run build",
     "full-build": "npm run clean && npm run build",
     "clean": "rm -rf dist",
     "build": "npm run lint && npm run compile",
@@ -20,7 +19,7 @@
     "prettier:write": "npm run prettier:base -- --write \"src/**/*.ts\" --write \"spec/**/*.ts\"",
     "compile": "tsc",
     "test": "npm run unit-test",
-    "unit-test": "node node_modules/mocha/bin/mocha spec/unit --opts .mocha",
+    "unit-test": "mocha \"spec/unit/**/*.ts\" --opts .mocha",
     "jshint": "npm run lint"
   },
   "author": "",
@@ -42,8 +41,7 @@
     "@types/sinon-chai": "^2.7.27",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "git-hooks": "^1.1.8",
-    "mocha": "^3.2.0",
+    "mocha": "^6.2.2",
     "prettier": "^1.4.0",
     "sinon": "^2.1.0",
     "sinon-chai": "^2.9.0",
